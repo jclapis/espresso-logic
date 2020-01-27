@@ -20,9 +20,34 @@
 #include <math.h>
 #include "espresso.h"
 #include "signature.h"
+
+#ifdef WIN32
+#include <Windows.h>
+
+	// This is derived from an old version of Msys / Cygwin:
+	// https://github.com/msysgit/msys/blob/master/winsup/cygwin/include/sys/resource.h
+
+	#define RLIMIT_CPU 0		/* CPU time in seconds */
+	#define RLIM_INFINITY (0xffffffffUL)
+
+	typedef unsigned long rlim_t;
+	struct rlimit {
+		rlim_t	rlim_cur;
+		rlim_t	rlim_max;
+	};
+
+	int setrlimit(int resource, const struct rlimit* rlp)
+	{
+		// This isn't supported on Windows for CPU time-based resource limits.
+		// See https://stackoverflow.com/questions/52437987/port-getrlimits-setrlimit-on-windows
+		return -1;
+	}	
+
+#else
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <unistd.h>
+#endif
 
 void
 set_time_limit(int seconds)

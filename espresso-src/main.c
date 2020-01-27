@@ -15,7 +15,13 @@
 
 #include "espresso.h"
 #include "main.h"		/* table definitions for options */
+#ifdef WIN32
+#include <Windows.h>
+#define IMPORT_API __declspec(dllimport)
+#else
+#define IMPORT_API
 #include <unistd.h>
+#endif
 
 static FILE *last_fp;
 static int input_type = FD_type;
@@ -37,8 +43,8 @@ int main(int argc, char **argv)
     cost_t cost;
     bool error, exact_cover;
     long start;
-    extern char *optarg;
-    extern int optind;
+	IMPORT_API extern char *optarg;
+	IMPORT_API extern int optind;
 
     start = ptime();
 

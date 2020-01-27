@@ -30,9 +30,15 @@
 #endif
 
 /* default */
+#ifndef WIN32
 #if !defined(BSD) && !defined(UNIX10) && !defined(UNIX60) && !defined(UNIX100)
 #define BSD
 #endif
+#endif
+
+#ifdef WIN32
+// Set up time and resource here
+#endif 
 
 #ifdef BSD
 #include <sys/time.h>
