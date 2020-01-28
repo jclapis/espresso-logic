@@ -66,6 +66,10 @@ void fprint_pla(FILE *fp, pPLA PLA, int output_type)
 	    fprintf(fp, ".end\n");
 	}
     }
+
+	// This is required for Windows to properly write the output when redirection is used
+	// (like redirecting stdout to a file).
+	fflush(fp);
 }
 
 void fpr_header(FILE *fp, pPLA PLA, int output_type)
