@@ -1,5 +1,10 @@
 #include "espresso.h"
+#ifdef WIN32
+#include <string.h>
+#define strdup _strdup
+#else
 #include "strdup.h"
+#endif
 
 int **find_pairing_cost(pPLA PLA, int strategy);
 

@@ -17,6 +17,8 @@
 #include "main.h"		/* table definitions for options */
 #ifdef WIN32
 #include <Windows.h>
+#include <string.h>
+#define strdup _strdup
 #define IMPORT_API __declspec(dllimport)
 #else
 #define IMPORT_API
@@ -572,7 +574,8 @@ void getPLA(int opt, int argc, char **argv, int option, pPLA *PLA, int out_type)
 	fprintf(stderr, "%s: Unable to find PLA on file %s\n", argv[0], fname);
 	exit(1);
     }
-    (*PLA)->filename = strdup(fname);
+	char* nameCopy = strdup(fname);
+    (*PLA)->filename = nameCopy;
     filename = (*PLA)->filename;
 /*    (void) fclose(fp);*/
 /* hackto support -Dmany */

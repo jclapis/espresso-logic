@@ -4,7 +4,12 @@
 */
 
 #include "espresso.h"
+#ifdef WIN32
+#include <string.h>
+#define strdup _strdup
+#else
 #include "strdup.h"
+#endif
 
 static bool line_length_error;
 static int lineno;
